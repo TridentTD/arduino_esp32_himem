@@ -10,8 +10,8 @@ ESP32 รุ่นที่สนับสนุน RAM ภายนอก (SRAM
 คำสั่ง esp_himem_get_phys_size();  
 --> คำสั่งสำหรับแสดงขนาด พื้นที่ PSRAM ส่วน HIMEM ที่เกินจาก 4MB แรก  
 
-คำสั่ง esp_himem_get_free_size();
---> คำสั่งสำหรับแสดงขนาดพื้นที่ส่วน PSRAM ส่วน HIMEM ที่จะสามารถจองพื้นที่ได้
+คำสั่ง esp_himem_get_free_size();  
+--> คำสั่งสำหรับแสดงขนาดพื้นที่ส่วน PSRAM ส่วน HIMEM ที่จะสามารถจองพื้นที่ได้  
 
 ฯลฯ 
 
@@ -27,6 +27,10 @@ C:\Users\ &lt;USER NAME&gt; \AppData\Local\Arduino15\packages\esp32\hardware\esp
 ```
 
 2. Test Arduino Sketch by /example/ESP32_PSRAM_Himem/ESP32_PSRAM_Himem.ino  
+
+<p align="center">
+  <img src="example.png" alt="image"/>
+</p>  
 
 TridentTD  
 25 June 2018  
