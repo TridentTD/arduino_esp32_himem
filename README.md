@@ -23,7 +23,7 @@ __Usage__
 
 1. Copy files in folder  /core   to your Arduino platform folder at
 ```
-C:\Users\ &lt;USER NAME&gt; \AppData\Local\Arduino15\packages\esp32\hardware\esp32\1.0.2\cores
+C:\Users\<USER NAME>\AppData\Local\Arduino15\packages\esp32\hardware\esp32\1.0.2\cores
 ```
 
 2. Test Arduino Sketch by /example/ESP32_PSRAM_Himem/ESP32_PSRAM_Himem.ino  
