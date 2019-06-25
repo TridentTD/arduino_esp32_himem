@@ -1,6 +1,6 @@
 # arduino_esp32_himem
 
-ESP32 รุ่นที่สนับสนุน RAM ภายนอก (SRAM/ PSRAM/ SPI RAM)  
+ESP32 รุ่นที่สนับสนุน RAM ภายนอก (PSRAM/ SPI RAM)  
 สำหรับ ArduinoIDE ปกติจะสามารถเข้าถึง ได้เพียง 4MB แรกเท่านั้น  
 แม้ตัว RAM ภายนอกได้ต่อไว้ถึง 8MB ก็ตาม  
 
