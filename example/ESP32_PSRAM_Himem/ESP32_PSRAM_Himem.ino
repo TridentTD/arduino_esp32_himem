@@ -1,4 +1,3 @@
-
 //Fill memory with pseudo-random data generated from the given seed.
 //Fills the memory in 32-bit words for speed.
 static void fill_mem_seed(int seed, void *mem, int len)
@@ -36,31 +35,31 @@ static bool test_region(int check_size, int seed)
     bool ret = true;
 
     //Allocate the memory we're going to check.
-    esp_himem_alloc(check_size, &mh);
+    ESP_ERROR_CHECK(esp_himem_alloc(check_size, &mh));
     //Allocate a block of address range
-    esp_himem_alloc_map_range(ESP_HIMEM_BLKSZ, &rh);
+    ESP_ERROR_CHECK(esp_himem_alloc_map_range(ESP_HIMEM_BLKSZ, &rh));
     for (int i = 0; i < check_size; i += ESP_HIMEM_BLKSZ) {
         uint32_t *ptr = NULL;
         //Map in block, write pseudo-random data, unmap block.
-        esp_himem_map(mh, rh, i, 0, ESP_HIMEM_BLKSZ, 0, (void**)&ptr);
+        ESP_ERROR_CHECK(esp_himem_map(mh, rh, i, 0, ESP_HIMEM_BLKSZ, 0, (void**)&ptr));
         fill_mem_seed(i ^ seed, ptr, ESP_HIMEM_BLKSZ); //
-        esp_himem_unmap(rh, ptr, ESP_HIMEM_BLKSZ);
+        ESP_ERROR_CHECK(esp_himem_unmap(rh, ptr, ESP_HIMEM_BLKSZ));
     }
     vTaskDelay(5); //give the OS some time to do things so the task watchdog doesn't bark
     for (int i = 0; i < check_size; i += ESP_HIMEM_BLKSZ) {
         uint32_t *ptr;
         //Map in block, check against earlier written pseudo-random data, unmap block.
-        esp_himem_map(mh, rh, i, 0, ESP_HIMEM_BLKSZ, 0, (void**)&ptr);
+        ESP_ERROR_CHECK(esp_himem_map(mh, rh, i, 0, ESP_HIMEM_BLKSZ, 0, (void**)&ptr));
         if (!check_mem_seed(i ^ seed, ptr, ESP_HIMEM_BLKSZ, i)) {
             printf("Error in block %d\n", i / ESP_HIMEM_BLKSZ);
             ret = false;
         }
-        esp_himem_unmap(rh, ptr, ESP_HIMEM_BLKSZ);
+        ESP_ERROR_CHECK(esp_himem_unmap(rh, ptr, ESP_HIMEM_BLKSZ));
         if (!ret) break; //don't check rest of blocks if error occurred
     }
     //Okay, all done!
-    esp_himem_free(mh);
-    esp_himem_free_map_range(rh);
+    ESP_ERROR_CHECK(esp_himem_free(mh));
+    ESP_ERROR_CHECK(esp_himem_free_map_range(rh));
     return ret;
 }
 
@@ -82,9 +81,14 @@ void setup() {
   Serial.println("Testing the free memory of PSRAM HI-MEM ...");
   test_region(esp_himem_get_free_size(), 0xaaaa);
   Serial.println("Done!");
+
+  ESP_LOGI(TAG, "Hello");
 }
+
 
 void loop() {
   // put your main code here, to run repeatedly:
 
 }
+
+
